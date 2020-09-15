@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'home_content.dart';
-import 'home_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key key}) : super(key: key);
@@ -10,10 +8,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('寻味中国'),
-      ),
+          title: Text('寻味中国'),
+          leading: IconButton(
+              icon: Icon(Icons.ac_unit),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              })),
       body: HomeContent(),
-      drawer: MyDrawer()
     );
   }
 }

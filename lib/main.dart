@@ -1,3 +1,4 @@
+import 'package:deliciousfood/core/provider/isSwitch_viewmodel.dart';
 import 'package:deliciousfood/core/provider/meal_viewmodel.dart';
 import 'package:deliciousfood/core/router/index.dart';
 import 'package:deliciousfood/ui/shared/theme.dart';
@@ -7,22 +8,28 @@ import 'core/fitscreen/index.dart';
 import 'core/provider/faver_viewmodel.dart';
 
 void main(List<String> args) {
-
-  runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (ctx)=>MealViewModel(),),
-      ChangeNotifierProvider(create: (ctx)=>FaverProvider(),),
-    ],
-    child: MyApp()
-    )
+  runApp(MultiProvider(providers: [
+    // ChangeNotifierProvider(create: (ctx)=>MealViewModel(),),
+    ChangeNotifierProvider(
+      create: (ctx) => IsSwitchViewModel(),
+    ),
+    ChangeNotifierProxyProvider<IsSwitchViewModel, MealViewModel>(
+        create: (ctx) => MealViewModel(),
+        update: (ctx, filterVm, mealVm) {
+          mealVm.updateFilter(filterVm);
+          return mealVm;
+        }),
+    ChangeNotifierProvider(
+      create: (ctx) => FaverProvider(),
+    ),
     
-  );
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     MyBoxFit.initatal();
     return MaterialApp(

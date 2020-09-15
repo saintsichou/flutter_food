@@ -1,4 +1,5 @@
 import 'package:deliciousfood/ui/pages/detail/index.dart';
+import 'package:deliciousfood/ui/pages/filter/index.dart';
 import 'package:deliciousfood/ui/pages/main/index.dart';
 import 'package:deliciousfood/ui/pages/meal/index.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +7,12 @@ import 'package:flutter/material.dart';
 class MyRouter {
   static final String initalRoute = MyMainPage.routerName;
   static final Map<String, WidgetBuilder> routes = {
-    MyMainPage.routerName:(ctx)=>MyMainPage(),
-    MyMealPage.routerName:(ctx)=>MyMealPage(),
-    MyDetail.routerName:(ctx)=>MyDetail()
+    MyMainPage.routerName: (ctx) => MyMainPage(),
+    MyMealPage.routerName: (ctx) => MyMealPage(),
+    MyDetail.routerName: (ctx) => MyDetail(),
+    // MyFilter.routerName: (ctx) => MyFilter()
   };
+  //路由拦截器
   static final RouteFactory onGenerateRoute = (RouteSettings settings) {
     // 统一处理
     final String name = settings.name;
@@ -18,13 +21,20 @@ class MyRouter {
       if (settings.arguments != null) {
         final Route route = MaterialPageRoute(
             builder: (context) =>
-                pageContentBuilder(context, arguments: settings.arguments));
+                pageContentBuilder(context, arguments: settings.arguments),
+            );
+
         return route;
       } else {
         final Route route = MaterialPageRoute(
-            builder: (context) => pageContentBuilder(context));
+            builder: (context) => pageContentBuilder(context),
+            );
         return route;
       }
+    } else {
+      return MaterialPageRoute(builder: (ctx) {
+        return MyFilter();
+      },fullscreenDialog: true);
     }
   };
   static final RouteFactory onUnknownRoute = (settings) {

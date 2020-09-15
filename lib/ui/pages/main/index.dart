@@ -1,3 +1,4 @@
+import 'package:deliciousfood/ui/pages/home/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'items.dart';
 class MyMainPage extends StatefulWidget {
@@ -27,6 +28,7 @@ class _MyMainPageState extends State<MyMainPage> {
           });
         },
       ),
+      drawer: MyDrawer()
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+import 'package:deliciousfood/ui/pages/filter/index.dart';
 import 'package:flutter/material.dart';
 import 'package:deliciousfood/core/fitscreen/int_screen.dart';
 
@@ -15,11 +15,11 @@ class MyDrawer extends StatelessWidget {
             children: <Widget>[
               Header(context),
               MyTile(Icon(Icons.settings), '设置过滤', () {
-                Navigator.of(context).pop();
+                // Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(MyFilter.routerName);
               }),
               MyTile(Icon(Icons.restaurant), '进餐', () {
                 Navigator.of(context).pop();
-
               }),
             ],
           ),
